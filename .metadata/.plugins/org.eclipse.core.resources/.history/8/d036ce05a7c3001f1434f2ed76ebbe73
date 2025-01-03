@@ -1,0 +1,139 @@
+package tests;
+import org.testng.Assert;
+	import org.testng.annotations.AfterClass;
+	import org.testng.annotations.BeforeClass;
+	import org.testng.annotations.Test;
+import org.w3c.dom.Document;
+
+import com.aventstack.extentreports.ExtentReports;
+	import com.aventstack.extentreports.ExtentTest;
+	import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+	import static io.restassured.RestAssured.*;
+
+import java.io.File;
+
+
+
+import io.restassured.RestAssured;
+	import io.restassured.response.Response;
+	import io.restassured.specification.RequestSpecification;
+	import org.json.simple.JSONObject;
+	import io.restassured.path.json.JsonPath;
+	public class newRestWithReport {
+	    
+	    protected static ExtentReports extent;
+	    protected static ExtentTest test;
+
+	    
+
+	    @BeforeClass
+	    public static void setup() {
+	        // Create an HTML reporter to generate the report
+	        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("ExtentReport.html");
+	        extent = new ExtentReports();
+	        extent.attachReporter(htmlReporter);
+	        
+	        
+	        Workbook wb = new XSSFWorkbook();
+	        Sheet sheet = wb.createSheet("Test Results");
+
+	        // Write headers
+	        Row headerRow = sheet.createRow(0);
+	        headerRow.createCell(0).setCellValue("Test Name");
+	        headerRow.createCell(1).setCellValue("Status");
+	        headerRow.createCell(2).setCellValue("Description");
+	        headerRow.createCell(3).setCellValue("Duration");
+
+	        // Parse and add rows from the HTML report
+	        List<TestResult> testResults = parseHtmlReport(doc);
+	        int rowIndex = 1;
+	        for (TestResult result : testResults) {
+	            Row row = sheet.createRow(rowIndex++);
+	            row.createCell(0).setCellValue(result.getTestName());
+	            row.createCell(1).setCellValue(result.getStatus());
+	            row.createCell(2).setCellValue(result.getDescription());
+	            row.createCell(3).setCellValue(result.getDuration());
+	        }
+
+	        // Write the output to Excel file
+	        try (FileOutputStream fileOut = new FileOutputStream("TestReport.xlsx")) {
+	            wb.write(fileOut);
+	        }
+
+	    }
+
+	    @AfterClass
+	    public static void tearDown() {
+	        // Write the results to the report
+	        extent.flush();
+	    }
+
+	    @Test
+	    public void testGet() {
+	        // Start a new test in the report
+	        test = extent.createTest("Test GET request for users");
+
+	        try {
+	            // Base URI and Request
+	            RestAssured.baseURI = "https://reqres.in/api";
+	            RequestSpecification httpRequest = RestAssured.given();
+	            Response res = httpRequest.queryParam("page", "2").get("/users");
+
+	            // Parse response body
+	            String responseBody = res.body().asString();
+	            JsonPath jpath = new JsonPath(responseBody);
+	            String page = jpath.getString("page");
+
+	            // Log response details into the report
+	            test.info("Response Body: " + responseBody);
+	            test.info("Page number in response: " + page);
+
+	            // Assertions
+	            Assert.assertEquals(res.getStatusCode(), 200);
+	            Assert.assertTrue(responseBody.contains("Michael"));
+	            
+	            // Log successful status code assertion
+	            test.pass("Status code is 200 and response contains 'Michael'");
+	        } catch (Exception e) {
+	            // Log failure in case of exception
+	            test.fail("Test failed due to: " + e.getMessage());
+	        }
+	    }
+
+	    @Test
+	    public void testPost() {
+	        // Start a new test in the report
+	        test = extent.createTest("Test POST request for creating a user");
+
+	        try {
+	            // Create request body
+	            JSONObject request = new JSONObject();
+	            request.put("name", "morpheus");
+	            request.put("job", "leader");
+	            request.put("id", "514");
+	            request.put("createdAt", "2024-10-15T08:27:49.349Z");
+
+	            // Base URI and POST request
+	            RestAssured.baseURI = "https://reqres.in/api";
+	            Response res = given().body(request.toJSONString()).when().post("/users");
+
+	            // Log response details into the report
+	            test.info("Request Body: " + request.toJSONString());
+	            test.info("Response Status Code: " + res.getStatusCode());
+	            test.info("Response Body: " + res.body().asString());
+
+	            // Assertions
+	            Assert.assertEquals(res.getStatusCode(), 201);
+	            
+	            // Log successful status code assertion
+	            test.pass("Status code is 201 and user is created successfully");
+	        } catch (Exception e) {
+	            // Log failure in case of exception
+	            test.fail("Test failed due to: " + e.getMessage());
+	        }
+	    }
+	}
+
+
+

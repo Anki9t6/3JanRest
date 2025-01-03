@@ -1,0 +1,41 @@
+package tests;
+import org.testng.annotations.Test;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.json.simple.JSONObject;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import io.restassured.specification.RequestSpecification;
+
+public class restWithReports {
+	
+	@Test
+	public void testGiven() {
+		https://reqres.in/api/users?page=2
+			RestAssured.baseURI = "https://reqres.in/api";
+		RequestSpecification httpRequest = RestAssured.given();
+		Response res = httpRequest.queryParam("page","2").get("/users");
+		ResponseBody body = res.body();
+		String rbdy = body.asString();
+		System.out.println(rbdy);
+		
+	}
+	
+	@Test
+	public void testPost() {
+		
+	}
+@Test
+public void testPut() {
+	
+}
+@Test
+public void testDelete() {
+	
+}
+}

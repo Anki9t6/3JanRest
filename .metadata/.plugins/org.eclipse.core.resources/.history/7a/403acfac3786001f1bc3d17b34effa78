@@ -1,0 +1,27 @@
+package tests;
+
+import org.testng.annotations.Test;
+
+import static io.restassured.RestAssured.*;
+import io.restassured.response.Response;
+
+public class classtest1 {
+		
+@Test
+public void test() {
+	Response response=get("https://reqres.in/api/users?page=2"); 
+	
+System.out.println(response.getBody().asString());
+response.getStatusCode();
+response.getTime();
+
+}	
+@Test
+public void putTest() {
+	baseURI="https://reqres.in/api";
+	given().get("users?page=2").then().
+	statusCode(200).log().all();
+	
+	
+}	
+}

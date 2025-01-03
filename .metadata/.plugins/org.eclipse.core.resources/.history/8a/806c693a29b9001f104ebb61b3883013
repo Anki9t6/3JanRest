@@ -1,0 +1,32 @@
+package tests;
+import org.testng.annotations.Test;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.json.simple.JSONObject;
+
+import io.restassured.response.Response;
+
+
+public class restReviseProgram {
+	
+	@Test
+	public void getTheUsrDetail() {
+	
+	/*given().
+	when().get("https://reqres.in/api/users?page=2").
+	then().statusCode(200).log().all();*/
+	
+	Response response=given().
+			when().get("https://reqres.in/api/users?page=2");
+	int page = response.jsonPath().getInt("per_page");
+ String data=response.jsonPath().getString("data[0]");
+   // System.out.println("User ID: " + page);
+    System.out.println("valua of first data  "+data);
+  
+	}
+			
+
+}

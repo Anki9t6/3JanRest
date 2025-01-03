@@ -1,0 +1,37 @@
+package tests;
+
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.json.simple.JSONObject;
+public class UsersLoginDetail {
+
+	@Test
+	public void getAllUser() {
+		baseURI="https://reqres.in/api";
+	 	Response response=given().when()
+		.get("/users?page=2");
+		String responseArray=response.asPrettyString();
+		JSONObject responseJSONObject = new JSONObject(responseArray);
+		//JSONObject requestBody=(JSONObject) response.getBody();
+		System.out.println(response.getBody());
+	}
+	/*@Test
+	public void getSingleUser() {
+		JSONObject request=new JSONObject();
+		request.put( "name","morpheus");
+		request.put("job", "leader");
+		request.put("id", "514");
+	request.put("createdAt", "2024-10-15T08:27:49.349Z");
+		baseURI="https://reqres.in/api";
+	Response response=	 given().body(request.toJSONString()).when().post("/users");
+
+		
+	}*/
+}
