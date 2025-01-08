@@ -1,0 +1,29 @@
+2025-01-08 14:40:08,872 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2025-01-08 14:40:08,892 INFO o.a.j.JMeter: Loading user properties from: user.properties
+2025-01-08 14:40:08,893 INFO o.a.j.JMeter: Loading system properties from: system.properties
+2025-01-08 14:40:08,899 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2025-01-08 14:40:08,899 INFO o.a.j.JMeter: Version 5.6.3
+2025-01-08 14:40:08,899 INFO o.a.j.JMeter: java.version=21.0.5
+2025-01-08 14:40:08,899 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2025-01-08 14:40:08,899 INFO o.a.j.JMeter: os.name=Windows 10
+2025-01-08 14:40:08,900 INFO o.a.j.JMeter: os.arch=amd64
+2025-01-08 14:40:08,900 INFO o.a.j.JMeter: os.version=10.0
+2025-01-08 14:40:08,900 INFO o.a.j.JMeter: file.encoding=UTF-8
+2025-01-08 14:40:08,900 INFO o.a.j.JMeter: java.awt.headless=true
+2025-01-08 14:40:08,900 INFO o.a.j.JMeter: Max memory     =1073741824
+2025-01-08 14:40:08,900 INFO o.a.j.JMeter: Available Processors =8
+2025-01-08 14:40:08,910 INFO o.a.j.JMeter: Default Locale=English (EN)
+2025-01-08 14:40:08,910 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2025-01-08 14:40:08,910 INFO o.a.j.JMeter: JMeterHome=C:\Users\ankit.sh\Downloads\apache\apache-jmeter-5.6.3\apache-jmeter-5.6.3
+2025-01-08 14:40:08,911 INFO o.a.j.JMeter: user.dir  =C:\Users\ankit.sh\Downloads\apache\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin
+2025-01-08 14:40:08,912 INFO o.a.j.JMeter: PWD       =C:\Users\ankit.sh\Downloads\apache\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin
+2025-01-08 14:40:08,913 INFO o.a.j.JMeter: IP: 192.168.29.79 Name: 360NDCLP240 FullName: 360NDCLP240.360logica.com
+2025-01-08 14:40:08,926 ERROR o.a.j.JMeter: An error occurred: 
+java.lang.IllegalArgumentException: Cannot write to 'C:\Users\ankit.sh\Downloads\apache\apache-jmeter-5.6.3\report' as folder is not empty
+	at org.apache.jorphan.util.JOrphanUtils.canSafelyWriteToFolder(JOrphanUtils.java:664) ~[jorphan.jar:5.6.3]
+	at org.apache.jorphan.util.JOrphanUtils.canSafelyWriteToFolder(JOrphanUtils.java:620) ~[jorphan.jar:5.6.3]
+	at org.apache.jmeter.JMeter.extractAndSetReportOutputFolder(JMeter.java:542) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.start(JMeter.java:492) [ApacheJMeter_core.jar:5.6.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.apache.jmeter.NewDriver.main(NewDriver.java:259) [ApacheJMeter.jar:5.6.3]
