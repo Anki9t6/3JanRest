@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.restReviseProgram">
+      <class name="tests.classtest1">
         <methods>
-          <include name="getTheUsrDetail"/>
+          <include name="putTest"/>
         </methods>
-      </class> <!-- tests.restReviseProgram -->
+      </class> <!-- tests.classtest1 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
